@@ -35,9 +35,12 @@ interface dropDownInput extends element {
   selected: string;
 }
 
-type ElementTypes = textInput | checkBoxInput | radioInput | dropDownInput;
+type ElementInterfaces = textInput | checkBoxInput | radioInput | dropDownInput;
+type ElementTypes = "text" | "checkbox" | "radio" | "dropdown";
+
 export type {
   ElementTypes,
+  ElementInterfaces,
   element,
   textInput,
   checkBoxInput,
