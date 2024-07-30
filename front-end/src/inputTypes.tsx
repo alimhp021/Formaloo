@@ -43,6 +43,7 @@ export type {
   ElementInterfaces,
   ElementInterfaces,
   ElementTypes,
+  ElementInterfaces,
   element,
   textInput,
   checkBoxInput,
