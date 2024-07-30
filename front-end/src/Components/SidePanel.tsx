@@ -23,7 +23,7 @@ export const SidePanel = () => {
             id="text"
             checked
           ></input>
-          <label htmlFor="text">Text</label>
+          <label htmlFor="text">text</label>
         </div>
         <div>
           <input
@@ -32,7 +32,7 @@ export const SidePanel = () => {
             name="type"
             id="checkbox"
           ></input>
-          <label htmlFor="checkbox">CheckBox</label>
+          <label htmlFor="checkbox">checkbox</label>
         </div>
         <div>
           <input
@@ -41,7 +41,7 @@ export const SidePanel = () => {
             name="type"
             id="radio"
           ></input>
-          <label htmlFor="radio">Radio</label>
+          <label htmlFor="radio">radio</label>
         </div>
         <div>
           <input
@@ -50,7 +50,7 @@ export const SidePanel = () => {
             name="type"
             id="dropdown"
           ></input>
-          <label htmlFor="dropdown">Drop-Down</label>
+          <label htmlFor="dropdown">dropdownnp</label>
         </div>
       </fieldset>
     </form>
