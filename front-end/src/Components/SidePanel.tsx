@@ -1,6 +1,6 @@
 import { ElementTypes } from "../inputTypes";
 import { useForm } from "react-hook-form";
-//temp
+
 interface SidePanelForm {
   inputType: ElementTypes;
 }
