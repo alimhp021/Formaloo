@@ -5,11 +5,13 @@ interface SidePanelForm {
   inputType: ElementTypes;
 }
 export const SidePanel = () => {
-  const { register } = useForm<SidePanelForm>({
+  const { register, watch } = useForm<SidePanelForm>({
     defaultValues: {
       inputType: "text",
     },
   });
+
+  console.log(watch("inputType")); // watch input value by passing the name of it
 
   return (
     <form action="" className="SidePanelForm">
