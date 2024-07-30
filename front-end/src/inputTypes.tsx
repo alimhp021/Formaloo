@@ -41,6 +41,8 @@ type ElementTypes = "text" | "checkbox" | "radio" | "dropdown";
 export type {
   ElementTypes,
   ElementInterfaces,
+  ElementInterfaces,
+  ElementTypes,
   element,
   textInput,
   checkBoxInput,
