@@ -1,6 +1,6 @@
 import { makeDataHandler } from "./database/data-handler";
 import { FormRepository } from "./modules/repository/form.repository";
-import { FormService } from "./modules/services/get-forms";
+import { FormService } from "./modules/services/form.service";
 
 export const dataHandler = makeDataHandler();
 
