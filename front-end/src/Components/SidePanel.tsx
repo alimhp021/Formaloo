@@ -1,60 +1,35 @@
 import { ElementTypes } from "../inputTypes";
 import { useForm } from "react-hook-form";
+import { PanelCheckbox } from "./PanelCheckbox";
+import { PanelText } from "./PanelText";
+import { PanelRadio } from "./PanelRadio";
+import { PanelDropDown } from "./PanelDropDown";
 
 interface SidePanelForm {
-  inputType: ElementTypes;
+  type: ElementTypes;
 }
+
 export const SidePanel = () => {
   const { register, watch } = useForm<SidePanelForm>({
-    defaultValues: {
-      inputType: "text",
-    },
+    defaultValues: { type: "text" },
   });
-
-  console.log(watch("inputType")); // watch input value by passing the name of it
-
   return (
-    <form action="" className="SidePanelForm">
-      <fieldset id="inputGroup" className="FieldSelection">
-        <legend>Select a field type:</legend>
-        <div>
-          <input
-            {...register("inputType")}
-            type="radio"
-            name="type"
-            id="text"
-            checked
-          ></input>
-          <label htmlFor="text">Text</label>
-        </div>
-        <div>
-          <input
-            {...register("inputType")}
-            type="radio"
-            name="type"
-            id="checkbox"
-          ></input>
-          <label htmlFor="checkbox">CheckBox</label>
-        </div>
-        <div>
-          <input
-            {...register("inputType")}
-            type="radio"
-            name="type"
-            id="radio"
-          ></input>
-          <label htmlFor="radio">Radio</label>
-        </div>
-        <div>
-          <input
-            {...register("inputType")}
-            type="radio"
-            name="type"
-            id="dropdown"
-          ></input>
-          <label htmlFor="dropdown">Drop-Down</label>
-        </div>
-      </fieldset>
-    </form>
+    <div className="SidePanelForm">
+      <form action="">
+        <fieldset id="inputGroup" className="FieldSelection">
+          <legend>Select a field type:</legend>
+          <select {...register("type", { required: true })} defaultValue="text">
+            <option value="text">Text</option>
+            <option value="checkbox">CheckBox</option>
+            <option value="radio">Radio</option>
+            <option value="checkbox">Drop-Down</option>
+          </select>
+        </fieldset>
+      </form>
+      {watch("type") === "text" && <PanelText></PanelText>}
+      {watch("type") === "radio" && <PanelRadio></PanelRadio>}
+      {watch("type") === "checkbox" && <PanelCheckbox></PanelCheckbox>}
+      {watch("type") === "dropdown" && <PanelDropDown></PanelDropDown>}
+    </div>
   );
 };

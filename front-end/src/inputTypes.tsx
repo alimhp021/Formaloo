@@ -5,8 +5,7 @@ interface element {
 interface textInput extends element {
   type: "text";
   text: string;
-
-  placeHolder: string;
+  placeholder: string;
   validations: {
     minLength: number;
     maxLength: number;
@@ -16,8 +15,8 @@ interface textInput extends element {
 
 interface checkBoxInput extends element {
   type: "checkbox";
-  options: string[];
-  selected: string[];
+  options: { title: string }[];
+  selected: { title: string }[];
   validations: {
     selectedFileds: number;
   };
@@ -25,14 +24,14 @@ interface checkBoxInput extends element {
 
 interface radioInput extends element {
   type: "radio";
-  options: string[];
-  selected: string;
+  options: { title: string }[];
+  selected: { title: string };
 }
 
 interface dropDownInput extends element {
   type: "dropdown";
-  options: string[];
-  selected: string;
+  options: { title: string }[];
+  selected: { title: string };
 }
 
 type ElementInterfaces = textInput | checkBoxInput | radioInput | dropDownInput;
