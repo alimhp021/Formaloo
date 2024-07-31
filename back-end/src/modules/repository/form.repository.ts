@@ -9,7 +9,7 @@ export class FormRepository {
         this.forms = dataHandler.model("forms", formsSchema);
     }
 
-    getForms = async () => {
-        return this.forms.find();
+    getForms = async (creatorId: string) => {
+        return await this.forms.find({creatorId: "admin"});
     }
 }
