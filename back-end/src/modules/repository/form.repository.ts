@@ -8,4 +8,8 @@ export class FormRepository {
         const formsSchema = new mongoose.Schema(formsSchemaObject);
         this.forms = dataHandler.model("forms", formsSchema);
     }
+
+    getForms = async () => {
+        return this.forms.find();
+    }
 }
