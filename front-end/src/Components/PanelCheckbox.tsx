@@ -21,10 +21,9 @@ export const PanelCheckbox = () => {
     name: "options",
     control,
   });
-  const { setCheckboxElement } = useContext(ElementContext);
+  const { dispatch } = useContext(ElementContext);
   const onSubmit: SubmitHandler<checkBoxInput> = (data) => {
-    console.log(data);
-    setCheckboxElement(data);
+    dispatch!({ type: "checkbox", value: data });
   };
 
   return (

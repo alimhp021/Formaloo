@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import "./App.css";
 import {
   textInput,
@@ -15,89 +15,73 @@ interface State {
   dropdown: dropDownInput;
 }
 
-export const ElementContext = createContext({
-  setTextElement: (_textElement: textInput) => {},
-  setRadioElement: (_radioElement: radioInput) => {},
-  setCheckboxElement: (_checkboxElement: checkBoxInput) => {},
-  setDropDownElement: (_dropdownElement: dropDownInput) => {},
-});
-
-function App() {
-  const [state, setState] = useState<State>({
-    text: {
+const initialState: State = {
+  text: {
+    type: "text",
+    text: "",
+    title: "",
+    isRequired: false,
+    placeholder: "",
+    validations: {
+      minLength: 1,
+      maxLength: 20,
       type: "text",
-      text: "",
-      title: "",
-      isRequired: false,
-      placeholder: "",
-      validations: {
-        minLength: 1,
-        maxLength: 20,
-        type: "text",
-      },
     },
-    radio: {
-      type: "radio",
-      title: "",
-      isRequired: false,
-      options: [{ title: "option 1" }, { title: "option 2" }],
-      selected: { title: "option 1" },
+  },
+  radio: {
+    type: "radio",
+    title: "",
+    isRequired: false,
+    options: [{ title: "option 1" }, { title: "option 2" }],
+    selected: { title: "option 1" },
+  },
+  checkbox: {
+    type: "checkbox",
+    title: "",
+    isRequired: false,
+    options: [{ title: "option 1" }, { title: "option 2" }],
+    selected: [{ title: "option 1" }],
+    validations: {
+      selectedFileds: 1,
     },
-    checkbox: {
-      type: "checkbox",
-      title: "",
-      isRequired: false,
-      options: [{ title: "option 1" }, { title: "option 2" }],
-      selected: [{ title: "option 1" }],
-      validations: {
-        selectedFileds: 1,
-      },
-    },
-    dropdown: {
-      type: "dropdown",
-      title: "",
-      isRequired: false,
-      options: [{ title: "option 1" }, { title: "option 2" }],
-      selected: { title: "option 1" },
-    },
-  });
-  const setTextElement = useCallback(
-    (textElement: textInput) => {
-      setState({ ...state, text: textElement });
-    },
-    [state]
-  );
-  const setRadioElement = useCallback(
-    (radioElement: radioInput) => {
-      setState({ ...state, radio: radioElement });
-    },
-    [state]
-  );
-  const setCheckboxElement = useCallback(
-    (checkboxElement: checkBoxInput) => {
-      setState({ ...state, checkbox: checkboxElement });
-    },
-    [state]
-  );
-  const setDropDownElement = useCallback(
-    (dropdownElement: dropDownInput) => {
-      setState({ ...state, dropdown: dropdownElement });
-    },
-    [state]
-  );
+  },
+  dropdown: {
+    type: "dropdown",
+    title: "",
+    isRequired: false,
+    options: [{ title: "option 1" }, { title: "option 2" }],
+    selected: { title: "option 1" },
+  },
+};
+export const ElementContext = createContext<{
+  dispatch: null | React.Dispatch<action>;
+}>({ dispatch: null });
+
+type action =
+  | { type: "text"; value: textInput }
+  | { type: "radio"; value: radioInput }
+  | { type: "checkbox"; value: checkBoxInput }
+  | { type: "dropdown"; value: dropDownInput };
+const reducer = (state: State, action: action): State => {
+  switch (action.type) {
+    case "text":
+      return { ...state, text: action.value };
+    case "checkbox":
+      return { ...state, checkbox: action.value };
+    case "radio":
+      return { ...state, radio: action.value };
+    case "dropdown":
+      return { ...state, dropdown: action.value };
+  }
+};
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     console.log(state);
   }, [state]);
   return (
     <div className="App">
-      <ElementContext.Provider
-        value={{
-          setTextElement,
-          setRadioElement,
-          setCheckboxElement,
-          setDropDownElement,
-        }}
-      >
+      <ElementContext.Provider value={{ dispatch: dispatch }}>
         <SidePanel></SidePanel>
       </ElementContext.Provider>
     </div>
