@@ -33,3 +33,7 @@
   align-items: start;
   gap: 15px;
 }
+
+.App .CreateForm {
+  width: 100%;
+}

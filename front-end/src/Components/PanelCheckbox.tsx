@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { checkBoxInput } from "../inputTypes";
 import { useContext } from "react";
-import { ElementContext } from "../App";
+import { ElementContext } from "./CreateForm";
 export const PanelCheckbox = () => {
   const { register, getValues, handleSubmit, control } = useForm<checkBoxInput>(
     {

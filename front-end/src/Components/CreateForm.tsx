@@ -80,7 +80,7 @@ function CreateForm() {
     console.log(state);
   }, [state]);
   return (
-    <div>
+    <div className="CreateForm">
       <ElementContext.Provider value={{ dispatch: dispatch }}>
         <SidePanel></SidePanel>
       </ElementContext.Provider>
