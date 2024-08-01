@@ -3,12 +3,12 @@ import { formService } from "../../config";
 
 export const formRouter = Router();
 
-formRouter.get("/getFormList", (req, res) => {
+formRouter.get("/getFormList", async (req, res) => {
     if (!req.headers.authorization) {
         res.status(401).send({message: "You are not logged in"});
         return;
     }
-    const forms = formService.getForms(req.headers.authorization);
+    const forms = await formService.getForms(req.headers.authorization);
     res.send(forms);
 });
 
