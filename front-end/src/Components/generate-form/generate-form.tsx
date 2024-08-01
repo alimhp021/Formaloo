@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { FormPreview } from "./form-preview";
 import "./generate-form.css";
-import { ElementInterfaces } from "./inputTypes";
+import { FormPreview } from "../form-preview/form-preview";
+import { ElementInterfaces } from "../../inputTypes";
 
 type GenerateFormProps = {
   elementsInfo: ElementInterfaces[];

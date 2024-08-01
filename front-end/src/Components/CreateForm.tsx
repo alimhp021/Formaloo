@@ -9,7 +9,8 @@ import {
 } from "../inputTypes";
 import { SidePanel } from "./SidePanel";
 import { nanoid } from "nanoid";
-import { GenerateForm } from "../generate-form";
+import { GenerateForm } from "./generate-form/generate-form";
+
 
 interface PanelState {
   text: textInput;
