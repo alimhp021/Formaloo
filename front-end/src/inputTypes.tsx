@@ -1,4 +1,5 @@
 interface element {
+  id: string;
   title: string;
   isRequired: boolean;
 }
@@ -35,7 +36,7 @@ interface dropDownInput extends element {
 }
 
 type ElementInterfaces = textInput | checkBoxInput | radioInput | dropDownInput;
-type ElementTypes = "text" | "checkbox" | "radio" | "dropdown";
+type ElementTypes = ElementInterfaces['type'];
 
 export type {
   ElementTypes,

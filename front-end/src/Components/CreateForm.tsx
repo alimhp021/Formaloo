@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { createContext, useEffect, useReducer } from "react";
 import {
   textInput,
   radioInput,
   checkBoxInput,
   dropDownInput,
+  ElementInterfaces,
 } from "../inputTypes";
 import { SidePanel } from "./SidePanel";
+import { nanoid } from "nanoid";
+import { GenerateForm } from "../generate-form";
 
 interface State {
   text: textInput;
@@ -76,6 +79,13 @@ const reducer = (state: State, action: action): State => {
 };
 function CreateForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [elements, setElements] = useState<ElementInterfaces[]>([]);
+  const addElement = useCallback(
+    (element: ElementInterfaces) =>
+      setElements((prev) => [...prev, { ...element, id: nanoid() }]),
+    []
+  );
+
   useEffect(() => {
     console.log(state);
   }, [state]);
@@ -83,6 +93,7 @@ function CreateForm() {
     <div className="CreateForm">
       <ElementContext.Provider value={{ dispatch: dispatch }}>
         <SidePanel></SidePanel>
+        <GenerateForm elementsInfo={elements} formName="testForNow" />
       </ElementContext.Provider>
     </div>
   );
