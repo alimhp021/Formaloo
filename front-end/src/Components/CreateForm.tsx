@@ -1,104 +1,44 @@
-import React, { useCallback, useState } from "react";
-import { createContext, useEffect, useReducer } from "react";
-import {
-  textInput,
-  radioInput,
-  checkBoxInput,
-  dropDownInput,
-  ElementInterfaces,
-} from "../inputTypes";
+import React, { useCallback, useEffect, useState } from "react";
+import { createContext } from "react";
+import { ElementInterfaces } from "../inputTypes";
 import { SidePanel } from "./SidePanel";
 import { nanoid } from "nanoid";
 import { GenerateForm } from "./generate-form/generate-form";
 
 
-interface PanelState {
-  text: textInput;
-  radio: radioInput;
-  checkbox: checkBoxInput;
-  dropdown: dropDownInput;
+interface CreateFormState {
+  elements: ElementInterfaces[];
 }
 
-const initialPanelState: PanelState = {
-  text: {
-    id: "",
-    type: "text",
-    text: "",
-    title: "",
-    isRequired: false,
-    placeholder: "",
-    validations: {
-      minLength: 1,
-      maxLength: 20,
-      type: "text",
-    },
-  },
-  radio: {
-    id: "",
-    type: "radio",
-    title: "",
-    isRequired: false,
-    options: [{ title: "option 1" }, { title: "option 2" }],
-    selected: { title: "option 1" },
-  },
-  checkbox: {
-    id: "",
-    type: "checkbox",
-    title: "",
-    isRequired: false,
-    options: [{ title: "option 1" }, { title: "option 2" }],
-    selected: [{ title: "option 1" }],
-    validations: {
-      selectedFileds: 1,
-    },
-  },
-  dropdown: {
-    id: "",
-    type: "dropdown",
-    title: "",
-    isRequired: false,
-    options: [{ title: "option 1" }, { title: "option 2" }],
-    selected: { title: "option 1" },
-  },
-};
-export const ElementContext = createContext<{
-  dispatch: null | React.Dispatch<action>;
-}>({ dispatch: null });
+type AddElement = { addElement: ((arg: ElementInterfaces) => void) | null };
+export const ElementContext = createContext<AddElement>({
+  addElement: () => {},
+});
 
-type action =
-  | { type: "text"; value: textInput }
-  | { type: "radio"; value: radioInput }
-  | { type: "checkbox"; value: checkBoxInput }
-  | { type: "dropdown"; value: dropDownInput };
-const reducer = (state: PanelState, action: action): PanelState => {
-  switch (action.type) {
-    case "text":
-      return { ...state, text: action.value };
-    case "checkbox":
-      return { ...state, checkbox: action.value };
-    case "radio":
-      return { ...state, radio: action.value };
-    case "dropdown":
-      return { ...state, dropdown: action.value };
-  }
-};
 function CreateForm() {
-  const [panelState, dispatch] = useReducer(reducer, initialPanelState);
-  const [elements, setElements] = useState<ElementInterfaces[]>([]);
-  const addElement = useCallback(
-    (element: ElementInterfaces) =>
-      setElements((prev) => [...prev, { ...element, id: nanoid() }]),
-    []
-  );
-
+  const [elementState, setElements] = useState<CreateFormState>({
+    elements: [],
+  });
   useEffect(() => {
-    console.log(panelState);
-  }, [panelState]);
+    console.log(elementState);
+  }, [elementState]);
+
+  const addElement = useCallback((element: ElementInterfaces) => {
+    setElements((elementState) => {
+      return {
+        elements: [...elementState.elements, { ...element, id: nanoid() }],
+      };
+    });
+  }, []);
+
   return (
     <div className="CreateForm">
-      <ElementContext.Provider value={{ dispatch: dispatch }}>
+      <ElementContext.Provider value={{ addElement: addElement }}>
         <SidePanel></SidePanel>
-        <GenerateForm elementsInfo={elements} formName="testForNow" />
+        <GenerateForm
+          elementsInfo={elementState.elements}
+          formName="testForNow"
+        />
       </ElementContext.Provider>
     </div>
   );

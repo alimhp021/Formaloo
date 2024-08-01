@@ -19,10 +19,10 @@ export const PanelDropDown = () => {
     name: "options",
     control,
   });
-  const { dispatch } = useContext(ElementContext);
+  const { addElement: addElement } = useContext(ElementContext);
 
   const onSubmit: SubmitHandler<dropDownInput> = (data) => {
-    dispatch!({ type: "dropdown", value: data });
+    addElement!(data);
   };
 
   return (

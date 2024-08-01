@@ -6,7 +6,7 @@ import FormList from "./Components/FormList";
 function App() {
   return (
     <div className="App">
-      <FormList></FormList>
+      <CreateForm></CreateForm>
     </div>
   );
 }

@@ -20,7 +20,7 @@ export const PanelText = () => {
     },
   });
 
-  const { dispatch } = useContext(ElementContext);
+  const { addElement: addElement } = useContext(ElementContext);
 
   // const inputType = z.object({
   //   text: z.coerce.string(),
@@ -30,7 +30,7 @@ export const PanelText = () => {
   // });
 
   const onSubmit: SubmitHandler<textInput> = (data) => {
-    dispatch!({ type: "text", value: data });
+    addElement!(data);
   };
 
   return (
