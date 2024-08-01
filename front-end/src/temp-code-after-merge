@@ -1,0 +1,74 @@
+//inside createForm component:
+
+import { createContext, useCallback, useEffect, useState } from "react";
+import "./App.css";
+import {
+  textInput,
+  radioInput,
+  checkBoxInput,
+  dropDownInput,
+  ElementInterfaces,
+} from "./inputTypes";
+import { SidePanel } from "./Components/SidePanel";
+import { GenerateForm } from "./generate-form";
+import { nanoid } from "nanoid";
+
+
+
+// const [elements, setElements] = useState<ElementInterfaces[]>([]);
+
+//   const addElement = useCallback(
+//     (element: ElementInterfaces) =>
+//       setElements((prev) => [...prev, { ...element, id: nanoid() }]),
+//     []
+//   );
+
+//   const setTextElement = useCallback(
+//     (textElement: textInput) => {
+//       setState({ ...state, text: textElement });
+//       addElement(textElement);
+//     },
+//     [state]
+//   );
+
+
+// return (
+//     <div className="App">
+//       <ElementContext.Provider
+//         value={{
+//           setTextElement: addElement,
+//           setRadioElement: addElement,
+//           setCheckboxElement: addElement,
+//           setDropDownElement: addElement,
+//         }}
+//       >
+//         <SidePanel></SidePanel>
+//         <GenerateForm elementsInfo={elements} formName="testForNow" />
+//       </ElementContext.Provider>
+//     </div>
+//   );
+
+
+
+
+//in inputType.tsx
+// interface element { ////FieldSchema & convert interface to type
+//     id: string;
+//     title: string;
+//     isRequired: boolean;
+//   }
+//type ElementTypes = ElementInterfaces['type'];
+
+
+
+
+
+//package.json
+// "dependencies": {
+//         "ky": "^1.5.0",
+//         "nanoid": "^5.0.7",
+//         "react": "^18.3.1",
+//         "react-dom": "^18.3.1",
+//         "react-hook-form": "^7.52.1",
+//         "zod": "^3.23.8"
+//       },
