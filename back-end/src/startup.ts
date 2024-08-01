@@ -6,7 +6,7 @@ export const makeApp = () => {
 
     app.use(express.json());
 
-    app.use(formRouter);
+    app.use("/forms", formRouter);
 
     app.use((req, res) => {
         res.status(404).send({message: "Page not found"});
