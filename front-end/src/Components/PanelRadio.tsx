@@ -18,10 +18,10 @@ export const PanelRadio = () => {
     name: "options",
     control,
   });
-  const { dispatch } = useContext(ElementContext);
+  const { addElement: addElement } = useContext(ElementContext);
 
   const onSubmit: SubmitHandler<radioInput> = (data) => {
-    dispatch!({ type: "radio", value: data });
+    addElement!(data);
   };
 
   return (

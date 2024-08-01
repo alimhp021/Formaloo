@@ -22,9 +22,9 @@ export const PanelCheckbox = () => {
     name: "options",
     control,
   });
-  const { dispatch } = useContext(ElementContext);
+  const { addElement: addElement } = useContext(ElementContext);
   const onSubmit: SubmitHandler<checkBoxInput> = (data) => {
-    dispatch!({ type: "checkbox", value: data });
+    addElement!(data);
   };
 
   return (
