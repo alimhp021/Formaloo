@@ -11,3 +11,7 @@ formRouter.get("/getFormList", (req, res) => {
     const forms = formService.getForms(req.headers.authorization);
     res.send(forms);
 });
+
+formRouter.post("/createForm", (req, res) => {
+    res.status(200).send(10);
+});
