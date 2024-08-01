@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { textInput } from "../inputTypes";
 import { useContext } from "react";
-import { ElementContext } from "../App";
+import { ElementContext } from "./CreateForm";
 // import { number, z } from "zod";
 export const PanelText = () => {
   const { register, getValues, handleSubmit } = useForm<textInput>({
@@ -19,7 +19,7 @@ export const PanelText = () => {
     },
   });
 
-  const { setTextElement } = useContext(ElementContext);
+  const { dispatch } = useContext(ElementContext);
 
   // const inputType = z.object({
   //   text: z.coerce.string(),
@@ -29,8 +29,7 @@ export const PanelText = () => {
   // });
 
   const onSubmit: SubmitHandler<textInput> = (data) => {
-    console.log(data);
-    setTextElement(data);
+    dispatch!({ type: "text", value: data });
   };
 
   return (

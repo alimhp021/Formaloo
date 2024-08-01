@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { radioInput } from "../inputTypes";
 import { useContext } from "react";
-import { ElementContext } from "../App";
+import { ElementContext } from "./CreateForm";
 
 export const PanelRadio = () => {
   const { register, getValues, handleSubmit, control } = useForm<radioInput>({
@@ -17,11 +17,10 @@ export const PanelRadio = () => {
     name: "options",
     control,
   });
-  const { setRadioElement } = useContext(ElementContext);
+  const { dispatch } = useContext(ElementContext);
 
   const onSubmit: SubmitHandler<radioInput> = (data) => {
-    console.log(data);
-    setRadioElement(data);
+    dispatch!({ type: "radio", value: data });
   };
 
   return (
