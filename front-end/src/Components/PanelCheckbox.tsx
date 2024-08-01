@@ -6,6 +6,7 @@ export const PanelCheckbox = () => {
   const { register, getValues, handleSubmit, control } = useForm<checkBoxInput>(
     {
       defaultValues: {
+        id: "",
         type: "checkbox",
         title: "",
         isRequired: false,

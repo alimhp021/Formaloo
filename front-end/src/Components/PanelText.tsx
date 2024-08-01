@@ -6,6 +6,7 @@ import { ElementContext } from "./CreateForm";
 export const PanelText = () => {
   const { register, getValues, handleSubmit } = useForm<textInput>({
     defaultValues: {
+      id: "",
       type: "text",
       text: "",
       title: "",
