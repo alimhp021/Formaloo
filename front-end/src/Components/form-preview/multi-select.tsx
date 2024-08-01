@@ -56,7 +56,7 @@ export function MultiSelect({ el, onChange }: MultiSelectProps) {
                   {text}
                   <input
                     type="checkbox"
-                    name={`${value}-checkbox`}
+                    name={`${el.id}-${value}`}
                     value={value}
                     checked={selected.includes(value)}
                     onChange={handleChange}

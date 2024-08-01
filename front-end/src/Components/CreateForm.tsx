@@ -35,10 +35,7 @@ function CreateForm() {
     <div className="CreateForm">
       <ElementContext.Provider value={{ addElement: addElement }}>
         <SidePanel></SidePanel>
-        <GenerateForm
-          elementsInfo={elementState.elements}
-          formName="testForNow"
-        />
+        <GenerateForm elementsInfo={elementState.elements}/>
       </ElementContext.Provider>
     </div>
   );

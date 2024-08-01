@@ -1,21 +1,20 @@
 import { useRef } from "react";
 import "./generate-form.css";
-import { FormPreview } from "../form-preview/form-preview";
+import { Form } from "../form-preview/form-preview";
 import { ElementInterfaces } from "../../inputTypes";
 
 type GenerateFormProps = {
   elementsInfo: ElementInterfaces[];
-  formName: string;
 };
 
-export function GenerateForm({ elementsInfo, formName }: GenerateFormProps) {
-  const isChecked = useRef(false);
+export function GenerateForm({ elementsInfo }: GenerateFormProps) {
+  const isPublished = useRef(false);
+  const formName = useRef('');
 
   return (
     <>
       <div>
-      <FormPreview elements={elementsInfo} formTitle={formName}/>
-        
+      <Form elements={elementsInfo} formTitle={formName.current}/>
       </div>
       <div>
       <form
@@ -25,8 +24,8 @@ export function GenerateForm({ elementsInfo, formName }: GenerateFormProps) {
           headers.append("Content-Type", "application/json");
           const data = {
             elementsInfo,
-            isPublished: isChecked.current,
-            formName
+            isPublished: isPublished.current,
+            formName: formName.current
           };
           const res = await fetch("/url", {
             method: "POST",
@@ -37,9 +36,14 @@ export function GenerateForm({ elementsInfo, formName }: GenerateFormProps) {
           // TODO: redirect user
         }}
       >
+        <label>
+          Enter Your Form Name :
+        <input type="text" onChange={(e)=>{formName.current=e.currentTarget.value}} />
+        </label>
         <input
           type="checkbox"
-          onChange={(e) => (isChecked.current = e.target.checked)}
+          name="isPublished"
+          onChange={(e) => (isPublished.current = e.target.checked)}
         />
         <button type="submit"> submit</button>
       </form>

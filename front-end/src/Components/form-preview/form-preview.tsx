@@ -1,56 +1,52 @@
 import "./form-preview.css";
 import "../../inputTypes";
-import { ElementInterfaces } from "../../inputTypes";
+import { ElementInterfaces, ElementTypes } from "../../inputTypes";
 import { TextInput } from "./text-input";
 import { RadioButton } from "./radio-button";
 import { DropDown } from "./drop-down";
 import { MultiSelect } from "./multi-select";
- 
 
 export type FormPreviewProps = {
   formTitle: string;
   elements: ElementInterfaces[];
+  formValue?: any;
+  onChange?: (value: any) => void;
 };
 
+const componentTypeMap: Record<ElementTypes, React.FunctionComponent<any>> = {
+  text: TextInput,
+  checkbox: MultiSelect,
+  radio: RadioButton,
+  dropdown: DropDown,
+};
 
-// const componentTypeMap = {
-//   inputText: TextInput,
-//   multiSelect: MultiSelect,
-//   radio: RadioButton,
-//   select: DropDown,
-// } satisfies Record<
-//   FormalooInputSchema["type"],
-//   React.FunctionComponent<ElementProps>
-// >;
-//"text" | "checkbox" | "radio" | "dropdown"
-// const componentTypeMap = {
-//     textInput: TextInput,
-//     checkBoxInput: MultiSelect,
-//     radioInput: RadioButton,
-//     dropDownInput: DropDown,
-//   } satisfies Record<
-//     FormalooInputSchema["type"],
-//     React.FunctionComponent<ElementProps>
-//   >;
+function initialValue(elements: ElementInterfaces[]) {
+  return Object.fromEntries(elements.map(({ id }) => [id, ""]));
+}
 
-export function FormPreview({ elements, formTitle }: FormPreviewProps) {
+export function Form({
+  elements,
+  formTitle,
+  formValue = initialValue(elements),
+  onChange,
+}: FormPreviewProps) {
   return (
     <div>
       <form className="form-preview">
-        <label>
-         <h1>{formTitle} Form</h1>
-        </label>
+        <h3>{formTitle} Form</h3>
         {elements.map((el) => {
-          switch (el.type) {
-            case "text":
-              return <TextInput key={el.id} el={el} />;
-            case "radio":
-              return <RadioButton key={el.id} el={el} />;
-            case "dropdown":
-              return <DropDown key={el.id} el={el} />;
-            case "checkbox":
-              return <MultiSelect key={el.id} el={el} />;
-          }
+          const Component = componentTypeMap[el.type];
+
+          return (
+            <Component
+              key={el.id}
+              el={el}
+              value={formValue[el.id]}
+              onChange={(value: any) =>
+                onChange?.({ ...formValue, [el.id]: value })
+              }
+            />
+          );
         })}
         <button type="submit">Submit</button>
       </form>

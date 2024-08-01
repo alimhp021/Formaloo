@@ -21,6 +21,7 @@ export function TextInput({ el, value = "", onChange }: TextInputProps) {
       <label>
         {el.title}
         <input
+          name={el.id}
           placeholder={el.placeholder}
           required={el.isRequired}
           {...el.validations}
