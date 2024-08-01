@@ -11,14 +11,14 @@ import { SidePanel } from "./SidePanel";
 import { nanoid } from "nanoid";
 import { GenerateForm } from "../generate-form";
 
-interface State {
+interface PanelState {
   text: textInput;
   radio: radioInput;
   checkbox: checkBoxInput;
   dropdown: dropDownInput;
 }
 
-const initialState: State = {
+const initialPanelState: PanelState = {
   text: {
     type: "text",
     text: "",
@@ -65,7 +65,7 @@ type action =
   | { type: "radio"; value: radioInput }
   | { type: "checkbox"; value: checkBoxInput }
   | { type: "dropdown"; value: dropDownInput };
-const reducer = (state: State, action: action): State => {
+const reducer = (state: PanelState, action: action): PanelState => {
   switch (action.type) {
     case "text":
       return { ...state, text: action.value };
@@ -78,7 +78,7 @@ const reducer = (state: State, action: action): State => {
   }
 };
 function CreateForm() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialPanelState);
   const [elements, setElements] = useState<ElementInterfaces[]>([]);
   const addElement = useCallback(
     (element: ElementInterfaces) =>
