@@ -17,6 +17,7 @@ interface PanelState {
 
 const initialPanelState: PanelState = {
   text: {
+    id: "",
     type: "text",
     text: "",
     title: "",
@@ -29,6 +30,7 @@ const initialPanelState: PanelState = {
     },
   },
   radio: {
+    id: "",
     type: "radio",
     title: "",
     isRequired: false,
@@ -36,6 +38,7 @@ const initialPanelState: PanelState = {
     selected: { title: "option 1" },
   },
   checkbox: {
+    id: "",
     type: "checkbox",
     title: "",
     isRequired: false,
@@ -46,6 +49,7 @@ const initialPanelState: PanelState = {
     },
   },
   dropdown: {
+    id: "",
     type: "dropdown",
     title: "",
     isRequired: false,
@@ -75,10 +79,10 @@ const reducer = (state: PanelState, action: action): PanelState => {
   }
 };
 function CreateForm() {
-  const [state, dispatch] = useReducer(reducer, initialPanelState);
+  const [panelState, dispatch] = useReducer(reducer, initialPanelState);
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    console.log(panelState);
+  }, [panelState]);
   return (
     <div className="CreateForm">
       <ElementContext.Provider value={{ dispatch: dispatch }}>

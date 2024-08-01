@@ -6,6 +6,7 @@ export const PanelDropDown = () => {
   const { register, getValues, handleSubmit, control } = useForm<dropDownInput>(
     {
       defaultValues: {
+        id: "",
         type: "dropdown",
         title: "",
         isRequired: false,

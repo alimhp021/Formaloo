@@ -1,4 +1,5 @@
 interface element {
+  id: string;
   title: string;
   isRequired: boolean;
 }

@@ -6,6 +6,7 @@ import { ElementContext } from "./CreateForm";
 export const PanelRadio = () => {
   const { register, getValues, handleSubmit, control } = useForm<radioInput>({
     defaultValues: {
+      id: "",
       type: "radio",
       title: "",
       isRequired: false,
