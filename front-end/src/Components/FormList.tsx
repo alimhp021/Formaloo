@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import { FormType } from "../Types/formType";
+import { ElementInterfaces } from "./inputTypes";
 
-interface FormTypeWithDate extends FormType {
+interface FormTypeWithDate {
+  formName: string;
+  isPublished: boolean;
+  elementsInfo: ElementInterfaces[];
   dateCreated: string;
   dateModified: string;
 }
@@ -11,11 +15,11 @@ const FormList = () => {
   const [forms, setForms] = useState<FormTypeWithDate[]>([]);
 
   useEffect(() => {
-    const postForms: FormType[] = forms.map((form) => {
+    const postForms = forms.map((form) => {
       const newForm: FormType = {
-        title: form.title,
-        status: form.status,
-        elements: form.elements,
+        formName: form.formName,
+        isPublished: form.isPublished,
+        elementsInfo: form.elementsInfo,
       };
       return newForm;
     });
@@ -26,10 +30,10 @@ const FormList = () => {
   return forms.map((form, index) => {
     return (
       <div className="Form">
-        <span>{form.title}</span>
+        <span>{form.formName}</span>
         <span>Date Created: {`${form.dateCreated}`} </span>
         <span>Date Modified: {`${form.dateModified}`}</span>
-        <span>Status: {form.status}</span>
+        <span>Status: {form.isPublished}</span>
         <button
           onClick={() => {
             setForms((forms) => {
