@@ -26,7 +26,7 @@ const componentTypeMap: Record<ElementTypes, React.FunctionComponent<any>> = {
 
 type FormFieldValue = string | string[] | number | number[] | boolean;
 
- type FormValue = Record<string, FormFieldValue>;
+type FormValue = Record<string, FormFieldValue>;
 
 function initialValue(elements: ElementInterfaces[]): FormValue {
   let yy = Object.fromEntries(
@@ -72,7 +72,7 @@ export function Form({
               />
               <button
                 className="delete-btn"
-                onClick={() => removeElement(el.id)}
+                onClick={() => removeElement!(el.id)}
               >
                 <span>
                   <i className="bi bi-trash-fill"></i>
