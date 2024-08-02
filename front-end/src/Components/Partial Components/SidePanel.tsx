@@ -9,6 +9,19 @@ interface SidePanelForm {
   type: ElementTypes;
 }
 
+const setForm = (type: ElementTypes) => {
+  switch (type) {
+    case "text":
+      return <PanelText></PanelText>;
+    case "checkbox":
+      return <PanelCheckbox></PanelCheckbox>;
+    case "dropdown":
+      return <PanelDropDown></PanelDropDown>;
+    case "radio":
+      return <PanelRadio></PanelRadio>;
+  }
+};
+
 export const SidePanel = () => {
   const { register, watch } = useForm<SidePanelForm>({
     defaultValues: { type: "text" },
@@ -24,10 +37,7 @@ export const SidePanel = () => {
           <option value="dropdown">Drop-Down</option>
         </select>
       </fieldset>
-      {watch("type") === "text" && <PanelText></PanelText>}
-      {watch("type") === "radio" && <PanelRadio></PanelRadio>}
-      {watch("type") === "checkbox" && <PanelCheckbox></PanelCheckbox>}
-      {watch("type") === "dropdown" && <PanelDropDown></PanelDropDown>}
+      {setForm(watch("type"))}
     </div>
   );
 };
