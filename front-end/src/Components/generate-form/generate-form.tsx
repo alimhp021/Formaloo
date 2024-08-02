@@ -10,11 +10,16 @@ type GenerateFormProps = {
 export function GenerateForm({ elementsInfo }: GenerateFormProps) {
   const [formTitle, setFormTitle] = useState("");
   const [formValue, setFormValue] = useState();
-  
+
   const createFormUrl = '/createForm"';
   return (
     <div className="generate-form">
-      <Form elements={elementsInfo} formTitle={formTitle} formValue={formValue} onChange={setFormValue} />
+      <Form
+        elements={elementsInfo}
+        formTitle={formTitle}
+        formValue={formValue}
+        onChange={setFormValue}
+      />
       <form
         className="create-generated-form"
         onSubmit={async (e) => {
@@ -25,7 +30,7 @@ export function GenerateForm({ elementsInfo }: GenerateFormProps) {
 
           const data = {
             elementsInfo,
-            isPublished: !!formData.get('isPublished'),
+            isPublished: !!formData.get("isPublished"),
             formName: formTitle,
           };
           const res = await fetch(createFormUrl, {

@@ -7,11 +7,12 @@ import { DropDown } from "./drop-down";
 import { MultiSelect } from "./multi-select";
 import { useContext } from "react";
 import { ElementContext } from "../CreateForm";
+import { string } from "zod";
 
 export type FormProps = {
   formTitle: string;
   elements: ElementInterfaces[];
-  formValue?: any;
+  formValue?: Record<string, FormFieldValue>;
   onChange?: (value: any) => void;
 };
 
@@ -22,9 +23,20 @@ const componentTypeMap: Record<ElementTypes, React.FunctionComponent<any>> = {
   dropdown: DropDown,
 };
 
-function initialValue(elements: ElementInterfaces[]) {
-  return Object.fromEntries(elements.map(({ id }) => [id, ""]));
+type FormFieldValue = string | string[] | number | number[] | boolean;
+
+type FormValue = Record<string, FormFieldValue>;
+
+function initialValue(
+  elements: ElementInterfaces[]
+): FormValue {
+  let yy = Object.fromEntries(elements.map(({ id, type }) => [id, type == 'checkbox' ? [] : '']));
+  return yy;
 }
+//:[string,FormInputValueType]
+// type u= {
+//   [id:string , value:FormInputValueType]
+// }
 
 export function Form({
   elements,
@@ -34,16 +46,15 @@ export function Form({
 }: FormProps) {
   const { removeElement } = useContext(ElementContext);
 
+  console.log({formValue})
   return (
     <div>
       <form className="form-preview">
         <h3>{formTitle} Form</h3>
         {elements.map((el) => {
           const Component = componentTypeMap[el.type];
-          console.log(Component.name)
-
           return (
-            <div key={el.id} style={{ display: "flex", alignItems: "stretch" }}>
+            <div key={el.id} style={{ display: "flex", alignItems: "center" }}>
               <Component
                 el={el}
                 value={formValue[el.id]}

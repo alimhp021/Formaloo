@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { checkBoxInput } from "../../inputTypes";
 
 type MultiSelectProps = {
   el: checkBoxInput;
+  value?: string[];
   onChange?: (selected: string[]) => void;
 };
 
@@ -27,29 +28,29 @@ function normalizeOptions(options: Option[]) {
       }));
 }
 
-export function MultiSelect({ el, onChange }: MultiSelectProps) {
-  const [selected, setSelected] = useState<string[]>([]);
-
+export function MultiSelect({
+  el,
+  value: selected = [],
+  onChange,
+}: MultiSelectProps) {
+  
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, checked } = event.target;
-      setSelected((prev) => {
-        const selected = checked
-          ? [...prev, value]
-          : prev.filter((v) => v !== value);
-        onChange?.(selected);
-        return selected;
-      });
-    },
-    []
+    ({ target: { value, checked } }: React.ChangeEvent<HTMLInputElement>) =>{
+      console.log({ value, checked, selected })
+      onChange?.(
+        checked ? [...selected, value] : selected.filter((v) => v !== value)
+      )},
+    [selected]
   );
+
   const options = normalizeOptions(el.options);
   return (
-      <fieldset className="element-row">
-        <legend>{el.title}</legend>
-        <ul>
-          {options.map(({ text, value }) => {
-            return (
+    <fieldset className="element-row">
+      <legend>{el.title}</legend>
+      <ul>
+        {options.map(({ text, value }) => {
+          return (
+            <Fragment key={`${el.id} ${text} ${value}`}>
               <li>
                 <label>
                   {text}
@@ -62,9 +63,10 @@ export function MultiSelect({ el, onChange }: MultiSelectProps) {
                   />
                 </label>
               </li>
-            );
-          })}
-        </ul>
-      </fieldset>
+            </Fragment>
+          );
+        })}
+      </ul>
+    </fieldset>
   );
 }

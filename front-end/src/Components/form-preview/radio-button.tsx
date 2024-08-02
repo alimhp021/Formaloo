@@ -17,11 +17,11 @@ export function RadioButton({ el, value, onChange }: RadioButtonProps) {
     [onChange]
   );
   return (
-    <fieldset className="element-row">
+    <fieldset className="element-row" style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
       <p> {el.title}</p>
       {el.options.map((option) => {
         return (
-          <Fragment key={`${el.id} ${option.title}`}>
+          <div key={`${el.id} ${option.title}`}>
             <label>{option.title}</label>
             <input
               type="radio"
@@ -30,7 +30,7 @@ export function RadioButton({ el, value, onChange }: RadioButtonProps) {
               checked={option.title == value}
               onChange={handleChange}
             />
-          </Fragment>
+          </div>
         );
       })}
     </fieldset>
