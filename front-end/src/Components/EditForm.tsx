@@ -18,9 +18,15 @@ export const ElementContext = createContext<ElementContext>({
   removeElement: null,
 });
 
-function EditForm() {
+function EditForm({
+  elements,
+  title,
+}: {
+  elements: ElementInterfaces[];
+  title: "string";
+}) {
   const [elementState, setElements] = useState<CreateFormState>({
-    elements: [],
+    elements: [...elements],
   });
   useEffect(() => {}, [elementState]);
 
