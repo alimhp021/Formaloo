@@ -1,28 +1,44 @@
-@import 'bootstrap';
-@import 'bootstrap-icons';
+@import "bootstrap";
+@import "bootstrap-icons";
 
 .App {
   text-align: center;
-  display: flex;
-  padding-inline: 10px;
+  padding: 1rem;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: medium;
 }
+
+.App .CreateForm {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media screen and (width > 480px) {
+  .App .CreateForm {
+    flex-direction: row;
+    /* align-items: stretch; */
+  }
+
+  .App .SidePanelForm {
+    width: 30%;
+    /* min-height: 100vw; */
+  }
+}
 .App .SidePanelForm {
-  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 15px;
-  padding: 15px;
+  gap: 1rem;
+  padding: 1rem;
   border: 2px solid black;
-  border-radius: 5px;
-  height: 100vw;
+  border-radius: 0.25rem;
 }
-.App fieldset {
+/* .App fieldset {
   border-radius: 5px;
-}
+} */
 .App .FieldSelection {
   display: flex;
   flex-direction: column;

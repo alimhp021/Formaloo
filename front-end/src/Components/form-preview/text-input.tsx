@@ -17,7 +17,7 @@ export function TextInput({ el, value = "", onChange }: TextInputProps) {
   );
 
   return (
-    <fieldset className="element-row">
+    <fieldset className="element-row" style={{margin: 0}}>
       <label>
         {el.title}
         <input

@@ -45,7 +45,6 @@ export function MultiSelect({ el, onChange }: MultiSelectProps) {
   );
   const options = normalizeOptions(el.options);
   return (
-    <form>
       <fieldset className="element-row">
         <legend>{el.title}</legend>
         <ul>
@@ -67,6 +66,5 @@ export function MultiSelect({ el, onChange }: MultiSelectProps) {
           })}
         </ul>
       </fieldset>
-    </form>
   );
 }

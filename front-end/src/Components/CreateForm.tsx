@@ -5,15 +5,12 @@ import { SidePanel } from "./SidePanel";
 import { nanoid } from "nanoid";
 import { GenerateForm } from "./generate-form/generate-form";
 
-
 interface CreateFormState {
   elements: ElementInterfaces[];
 }
 
-type AddElement = { addElement: ((arg: ElementInterfaces) => void) | null };
-export const ElementContext = createContext<AddElement>({
-  addElement: () => {},
-});
+type ElementContext = { addElement: ((arg: ElementInterfaces) => void), removeElement: (id: string) => void };
+export const ElementContext = createContext<ElementContext>(null as any);
 
 function CreateForm() {
   const [elementState, setElements] = useState<CreateFormState>({
@@ -31,11 +28,20 @@ function CreateForm() {
     });
   }, []);
 
+  const removeElement = useCallback(
+    (id: string) =>
+      setElements((elementState) => ({
+        ...elementState,
+        elements: elementState.elements.filter((el) => el.id != id),
+      })),
+    []
+  );
+
   return (
     <div className="CreateForm">
-      <ElementContext.Provider value={{ addElement: addElement }}>
+      <ElementContext.Provider value={{ addElement, removeElement }}>
         <SidePanel></SidePanel>
-        <GenerateForm elementsInfo={elementState.elements}/>
+        <GenerateForm elementsInfo={elementState.elements} />
       </ElementContext.Provider>
     </div>
   );

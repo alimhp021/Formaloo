@@ -1,9 +1,21 @@
 .form-preview{
-    padding: 20px;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
     border: 1px solid black;
 }
 
 .element-row{
-    margin: 4px;;
+    /* margin: 4px; */
+}
+
+.element-row input[type="text"] {
+    border-radius: 0.25rem 0 0 0.25rem;
+    padding-right: 0;
+}
+
+.delete-btn {
+    border-radius: 0 0.25rem 0.25rem 0;
 }

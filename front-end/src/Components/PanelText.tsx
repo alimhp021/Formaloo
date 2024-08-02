@@ -34,7 +34,7 @@ export const PanelText = () => {
   };
 
   return (
-    <form action="" className="TextForm" onSubmit={handleSubmit(onSubmit)}>
+    <form className="TextForm" onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="title">Enter field's title</label>
 
       <input
