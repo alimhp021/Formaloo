@@ -18,7 +18,7 @@ export const ElementContext = createContext<ElementContext>({
   removeElement: null,
 });
 
-function CreateForm() {
+function EditForm() {
   const [elementState, setElements] = useState<CreateFormState>({
     elements: [],
   });
@@ -51,4 +51,4 @@ function CreateForm() {
   );
 }
 
-export default CreateForm;
+export default EditForm;
