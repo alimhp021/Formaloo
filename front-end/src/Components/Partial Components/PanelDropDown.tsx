@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { dropDownInput } from "../../Types/inputTypes";
 import { useContext } from "react";
 import { ElementContext } from "../CreateForm";
+import { dropDownInput } from "../../Types/inputTypes";
 export const PanelDropDown = () => {
   const { register, getValues, handleSubmit, control } = useForm<dropDownInput>(
     {

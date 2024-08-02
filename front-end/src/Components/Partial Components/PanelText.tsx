@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { textInput } from "../../Types/inputTypes";
 import { useContext } from "react";
 import { ElementContext } from "../CreateForm";
+import { textInput } from "../../Types/inputTypes";
 // import { number, z } from "zod";
 export const PanelText = () => {
   const { register, getValues, handleSubmit } = useForm<textInput>({

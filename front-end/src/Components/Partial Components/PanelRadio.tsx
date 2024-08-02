@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { radioInput } from "../../Types/inputTypes";
 import { useContext } from "react";
+import { radioInput } from "../../Types/inputTypes";
 import { ElementContext } from "../CreateForm";
 
 export const PanelRadio = () => {
