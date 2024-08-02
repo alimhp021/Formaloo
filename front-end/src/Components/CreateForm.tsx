@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { createContext } from "react";
 import { ElementInterfaces } from "../Types/inputTypes";
-import { SidePanel } from "./SidePanel";
+import { SidePanel } from "./Partial Components/SidePanel";
 import { nanoid } from "nanoid";
 import { GenerateForm } from "./generate-form/generate-form";
 

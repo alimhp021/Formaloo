@@ -1,4 +1,4 @@
-import { ElementTypes } from "../Types/inputTypes";
+import { ElementTypes } from "../../Types/inputTypes";
 import { useForm } from "react-hook-form";
 import { PanelCheckbox } from "./PanelCheckbox";
 import { PanelText } from "./PanelText";
