@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import "../App.css";
 import { FormType } from "../Types/formType";
 import { ElementInterfaces } from "../Types/inputTypes";
+import { RouteContext } from "../App";
 
 interface FormTypeWithDate {
   formName: string;
@@ -13,7 +14,12 @@ interface FormTypeWithDate {
 
 const FormList = () => {
   const [forms, setForms] = useState<FormTypeWithDate[]>([]);
-
+  const { updateRoute: updateRoute } = useContext(RouteContext);
+  const deleteForm = useCallback((index: number) => {
+    setForms((forms) => {
+      return forms.slice(0, index).concat(forms.slice(index + 1));
+    });
+  }, []);
   useEffect(() => {
     const postForms = forms.map((form) => {
       const newForm: FormType = {
@@ -36,14 +42,20 @@ const FormList = () => {
         <span>Status: {form.isPublished}</span>
         <button
           onClick={() => {
-            setForms((forms) => {
-              return forms.slice(0, index).concat(forms.slice(index + 1));
-            });
+            deleteForm(index);
           }}
         >
           Delete
         </button>
-        <button>Edit</button>
+        <button
+          onClick={() => {
+            //deletes current form and posts the form returned by the EditForm page
+            deleteForm(index);
+            updateRoute("editForm");
+          }}
+        >
+          Edit
+        </button>
         <button>View Results</button>
       </div>
     );
