@@ -1,11 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createContext } from "react";
 import { ElementInterfaces } from "../Types/inputTypes";
 import { SidePanel } from "./Partial Components/SidePanel";
@@ -16,43 +9,41 @@ interface CreateFormState {
   elements: ElementInterfaces[];
 }
 
-type ElementsSetter = Dispatch<SetStateAction<CreateFormState>>;
-
-const createElementContextValue = (setElements: ElementsSetter) => ({
-  addElement(element: ElementInterfaces) {
-    setElements((elementState) => {
-      return {
-        elements: [...elementState.elements, { ...element, id: nanoid() }],
-      };
-    });
-  },
-  removeElement(id: string) {
-    setElements((elementState) => ({
-      ...elementState,
-      elements: elementState.elements.filter((el) => el.id != id),
-    }));
-  },
+type ElementContext = {
+  addElement: ((arg: ElementInterfaces) => void) | null;
+  removeElement: ((id: string) => void) | null;
+};
+export const ElementContext = createContext<ElementContext>({
+  addElement: null,
+  removeElement: null,
 });
-
-type ElementContext = ReturnType<typeof createElementContextValue>;
-
-export const ElementContext = createContext<ElementContext>(null as any);
 
 function CreateForm() {
   const [elementState, setElements] = useState<CreateFormState>({
     elements: [],
   });
+  useEffect(() => {}, [elementState]);
 
-  const elementContextValue = useMemo(
-    () => createElementContextValue(setElements),
+  const addElement = useCallback((element: ElementInterfaces) => {
+    setElements((elementState) => {
+      return {
+        elements: [...elementState.elements, { ...element, id: nanoid() }],
+      };
+    });
+  }, []);
+
+  const removeElement = useCallback(
+    (id: string) =>
+      setElements((elementState) => ({
+        ...elementState,
+        elements: elementState.elements.filter((el) => el.id != id),
+      })),
     []
   );
 
-  useEffect(() => {}, [elementState]);
-
   return (
     <div className="CreateForm">
-      <ElementContext.Provider value={elementContextValue}>
+      <ElementContext.Provider value={{ addElement, removeElement }}>
         <SidePanel></SidePanel>
         <GenerateForm elementsInfo={elementState.elements} />
       </ElementContext.Provider>
