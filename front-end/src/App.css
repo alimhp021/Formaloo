@@ -1,5 +1,5 @@
-@import 'bootstrap';
-@import 'bootstrap-icons';
+@import "bootstrap";
+@import "bootstrap-icons";
 
 .App {
   text-align: center;
@@ -38,5 +38,5 @@
 }
 
 .App .CreateForm {
-  width: 100%;
+  width: 100vw;
 }
