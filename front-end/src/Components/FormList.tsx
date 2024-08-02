@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../App.css";
+import { FormType } from "../Types/formType";
 
-interface FormType {
-  title: string;
+interface FormTypeWithDate extends FormType {
   dateCreated: string;
   dateModified: string;
-  status: "published" | "unpublished";
 }
 
 const FormList = () => {
-  const [forms, setForms] = useState<FormType[]>([]);
+  const [forms, setForms] = useState<FormTypeWithDate[]>([]);
 
-  //api call to setForms
+  useEffect(() => {
+    const postForms: FormType[] = forms.map((form) => {
+      const newForm: FormType = {
+        title: form.title,
+        status: form.status,
+        elements: form.elements,
+      };
+      return newForm;
+    });
+    // api call PostForms
+  });
+  //api call : recieve forms
 
   return forms.map((form, index) => {
     return (
@@ -25,7 +35,6 @@ const FormList = () => {
             setForms((forms) => {
               return forms.slice(0, index).concat(forms.slice(index + 1));
             });
-            // api call new form list
           }}
         >
           Delete
