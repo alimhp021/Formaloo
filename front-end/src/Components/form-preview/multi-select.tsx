@@ -46,7 +46,7 @@ export function MultiSelect({
   const options = normalizeOptions(el.options);
   return (
     <fieldset className="element-row">
-      <legend>{el.title}</legend>
+      <h3>{el.title}</h3>
       <ul>
         {options.map(({ text, value }) => {
           return (

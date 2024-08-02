@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { createContext } from "react";
 import { ElementInterfaces } from "../Types/inputTypes";
 import { SidePanel } from "./Partial Components/SidePanel";
@@ -9,41 +16,43 @@ interface CreateFormState {
   elements: ElementInterfaces[];
 }
 
-type ElementContext = {
-  addElement: ((arg: ElementInterfaces) => void) | null;
-  removeElement: ((id: string) => void) | null;
-};
-export const ElementContext = createContext<ElementContext>({
-  addElement: null,
-  removeElement: null,
-});
+type ElementsSetter = Dispatch<SetStateAction<CreateFormState>>;
 
-function CreateForm() {
-  const [elementState, setElements] = useState<CreateFormState>({
-    elements: [],
-  });
-  useEffect(() => {}, [elementState]);
-
-  const addElement = useCallback((element: ElementInterfaces) => {
+const createElementContextValue = (setElements: ElementsSetter) => ({
+  addElement(element: ElementInterfaces) {
     setElements((elementState) => {
       return {
         elements: [...elementState.elements, { ...element, id: nanoid() }],
       };
     });
-  }, []);
+  },
+  removeElement(id: string) {
+    setElements((elementState) => ({
+      ...elementState,
+      elements: elementState.elements.filter((el) => el.id != id),
+    }));
+  },
+});
 
-  const removeElement = useCallback(
-    (id: string) =>
-      setElements((elementState) => ({
-        ...elementState,
-        elements: elementState.elements.filter((el) => el.id != id),
-      })),
+type ElementContext = ReturnType<typeof createElementContextValue>;
+
+export const ElementContext = createContext<ElementContext>(null as any);
+
+function CreateForm() {
+  const [elementState, setElements] = useState<CreateFormState>({
+    elements: [],
+  });
+
+  const elementContextValue = useMemo(
+    () => createElementContextValue(setElements),
     []
   );
 
+  useEffect(() => {}, [elementState]);
+
   return (
     <div className="CreateForm">
-      <ElementContext.Provider value={{ addElement, removeElement }}>
+      <ElementContext.Provider value={elementContextValue}>
         <SidePanel></SidePanel>
         <GenerateForm elementsInfo={elementState.elements} />
       </ElementContext.Provider>
