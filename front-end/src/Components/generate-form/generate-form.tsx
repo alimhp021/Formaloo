@@ -12,7 +12,7 @@ export function GenerateForm({ elementsInfo }: GenerateFormProps) {
   const [formTitle, setFormTitle] = useState("");
   const [formValue, setFormValue] = useState();
 
-  const createFormUrl = '/createForm"';
+  const createFormUrl = '/forms/createForm';
   const { updateRoute: updateRoute } = useContext(RouteContext);
 
   return (
@@ -36,32 +36,29 @@ export function GenerateForm({ elementsInfo }: GenerateFormProps) {
             isPublished: !!formData.get("isPublished"),
             formName: formTitle,
           };
+          console.log(data );
+          console.log(JSON.stringify(data) );
           const res = await fetch(createFormUrl, {
             method: "POST",
             headers,
             body: JSON.stringify(data),
           });
-          console.log(res);
+          console.log(await res.json());
           // TODO: redirect user
           updateRoute("dashboard");
         }}
       >
-        <label
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "start",
-          }}
-        >
+         <label className="form-name-label">
           Enter Your Form Name
           <input
             type="text"
+            required
             onChange={(e) => {
               setFormTitle(e.currentTarget.value);
             }}
           />
         </label>
-        <label style={{ display: "flex", gap: "0.5rem" }}>
+        <label className="checkbox-label">
           Is Published?
           <input type="checkbox" name="isPublished" />
         </label>

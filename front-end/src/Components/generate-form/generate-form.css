@@ -18,3 +18,14 @@
     border: 1px solid black;
     border-radius: 0.25rem;
 }
+
+.checkbox-label{
+    display: flex;
+    gap: 0.5rem ;
+}
+
+.form-name-label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}

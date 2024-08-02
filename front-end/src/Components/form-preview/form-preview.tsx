@@ -14,6 +14,7 @@ export type FormProps = {
   elements: ElementInterfaces[];
   formValue?: Record<string, FormFieldValue>;
   onChange?: (value: any) => void;
+  onSubmit?: (value: FormValue) => void;
 };
 
 const componentTypeMap: Record<ElementTypes, React.FunctionComponent<any>> = {
@@ -25,7 +26,7 @@ const componentTypeMap: Record<ElementTypes, React.FunctionComponent<any>> = {
 
 type FormFieldValue = string | string[] | number | number[] | boolean;
 
-type FormValue = Record<string, FormFieldValue>;
+ type FormValue = Record<string, FormFieldValue>;
 
 function initialValue(elements: ElementInterfaces[]): FormValue {
   let yy = Object.fromEntries(
@@ -43,13 +44,20 @@ export function Form({
   formTitle,
   formValue = initialValue(elements),
   onChange,
+  onSubmit,
 }: FormProps) {
   const { removeElement } = useContext(ElementContext);
 
   console.log({ formValue });
   return (
     <div>
-      <form className="form-preview">
+      <form
+        className="form-preview"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit?.(formValue);
+        }}
+      >
         <h3>{formTitle} Form</h3>
         {elements.map((el) => {
           const Component = componentTypeMap[el.type];
