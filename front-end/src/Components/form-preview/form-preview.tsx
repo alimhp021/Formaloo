@@ -1,6 +1,6 @@
 import "./form-preview.css";
-import "../../inputTypes";
-import { ElementInterfaces, ElementTypes } from "../../inputTypes";
+import "../../Types/inputTypes";
+import { ElementInterfaces, ElementTypes } from "../../Types/inputTypes";
 import { TextInput } from "./text-input";
 import { RadioButton } from "./radio-button";
 import { DropDown } from "./drop-down";
@@ -27,10 +27,10 @@ type FormFieldValue = string | string[] | number | number[] | boolean;
 
 type FormValue = Record<string, FormFieldValue>;
 
-function initialValue(
-  elements: ElementInterfaces[]
-): FormValue {
-  let yy = Object.fromEntries(elements.map(({ id, type }) => [id, type == 'checkbox' ? [] : '']));
+function initialValue(elements: ElementInterfaces[]): FormValue {
+  let yy = Object.fromEntries(
+    elements.map(({ id, type }) => [id, type == "checkbox" ? [] : ""])
+  );
   return yy;
 }
 //:[string,FormInputValueType]
@@ -46,7 +46,7 @@ export function Form({
 }: FormProps) {
   const { removeElement } = useContext(ElementContext);
 
-  console.log({formValue})
+  console.log({ formValue });
   return (
     <div>
       <form className="form-preview">

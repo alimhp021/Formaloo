@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback } from "react";
-import { textInput } from "../../inputTypes";
+import { textInput } from "../../Types/inputTypes";
 
 type TextInputProps = {
   el: textInput;
@@ -17,7 +17,7 @@ export function TextInput({ el, value = "", onChange }: TextInputProps) {
   );
 
   return (
-    <fieldset className="element-row" style={{margin: 0}}>
+    <fieldset className="element-row" style={{ margin: 0 }}>
       <label>
         {el.title}
         <input

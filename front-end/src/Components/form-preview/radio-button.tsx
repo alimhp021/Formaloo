@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment, useCallback } from "react";
-import { radioInput } from "../../inputTypes";
+import { radioInput } from "../../Types/inputTypes";
 
 type RadioButtonProps = {
   el: radioInput;
@@ -11,13 +11,16 @@ export function RadioButton({ el, value, onChange }: RadioButtonProps) {
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value;
-      console.log({value})
+      console.log({ value });
       onChange?.(value);
     },
     [onChange]
   );
   return (
-    <fieldset className="element-row" style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+    <fieldset
+      className="element-row"
+      style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+    >
       <p> {el.title}</p>
       {el.options.map((option) => {
         return (

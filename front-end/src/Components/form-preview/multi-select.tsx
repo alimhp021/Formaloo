@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useState } from "react";
-import { checkBoxInput } from "../../inputTypes";
+import { checkBoxInput } from "../../Types/inputTypes";
 
 type MultiSelectProps = {
   el: checkBoxInput;
@@ -33,13 +33,13 @@ export function MultiSelect({
   value: selected = [],
   onChange,
 }: MultiSelectProps) {
-  
   const handleChange = useCallback(
-    ({ target: { value, checked } }: React.ChangeEvent<HTMLInputElement>) =>{
-      console.log({ value, checked, selected })
+    ({ target: { value, checked } }: React.ChangeEvent<HTMLInputElement>) => {
+      console.log({ value, checked, selected });
       onChange?.(
         checked ? [...selected, value] : selected.filter((v) => v !== value)
-      )},
+      );
+    },
     [selected]
   );
 

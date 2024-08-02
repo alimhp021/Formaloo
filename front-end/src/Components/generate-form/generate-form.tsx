@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./generate-form.css";
 import { Form } from "../form-preview/form-preview";
-import { ElementInterfaces } from "../../inputTypes";
+import { ElementInterfaces } from "../../Types/inputTypes";
 import { RouteContext } from "../../App";
 
 type GenerateFormProps = {

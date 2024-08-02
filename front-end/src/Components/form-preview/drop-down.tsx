@@ -1,5 +1,5 @@
 import { useCallback, ChangeEvent, useMemo } from "react";
-import { dropDownInput } from "../../inputTypes";
+import { dropDownInput } from "../../Types/inputTypes";
 
 type DropDownProps = {
   el: dropDownInput;
