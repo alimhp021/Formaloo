@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useState, useContext } from "react";
 import "./generate-form.css";
 import { Form } from "../form-preview/form-preview";
 import { ElementInterfaces } from "../../inputTypes";
+import { RouteContext } from "../../App";
 
 type GenerateFormProps = {
   elementsInfo: ElementInterfaces[];
@@ -10,11 +11,18 @@ type GenerateFormProps = {
 export function GenerateForm({ elementsInfo }: GenerateFormProps) {
   const [formTitle, setFormTitle] = useState("");
   const [formValue, setFormValue] = useState();
-  
+
   const createFormUrl = '/createForm"';
+  const { updateRoute: updateRoute } = useContext(RouteContext);
+
   return (
     <div className="generate-form">
-      <Form elements={elementsInfo} formTitle={formTitle} formValue={formValue} onChange={setFormValue} />
+      <Form
+        elements={elementsInfo}
+        formTitle={formTitle}
+        formValue={formValue}
+        onChange={setFormValue}
+      />
       <form
         className="create-generated-form"
         onSubmit={async (e) => {
@@ -25,7 +33,7 @@ export function GenerateForm({ elementsInfo }: GenerateFormProps) {
 
           const data = {
             elementsInfo,
-            isPublished: !!formData.get('isPublished'),
+            isPublished: !!formData.get("isPublished"),
             formName: formTitle,
           };
           const res = await fetch(createFormUrl, {
@@ -35,6 +43,7 @@ export function GenerateForm({ elementsInfo }: GenerateFormProps) {
           });
           console.log(res);
           // TODO: redirect user
+          updateRoute("dashboard");
         }}
       >
         <label

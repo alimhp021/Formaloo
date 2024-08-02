@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { ElementInterfaces } from "../inputTypes";
 import { SidePanel } from "./SidePanel";
-// import { RouteContext } from "../App";
 import { nanoid } from "nanoid";
 import { GenerateForm } from "./generate-form/generate-form";
 
@@ -10,10 +9,11 @@ interface CreateFormState {
   elements: ElementInterfaces[];
 }
 
-type ElementContext = { addElement: ((arg: ElementInterfaces) => void), removeElement: (id: string) => void };
-export const ElementContext = createContext<ElementContext>(null as any);
-
-// const { updateRoute: updateRoute } = useContext(RouteContext);
+type ElementContext = {
+  addElement: (arg: ElementInterfaces) => void;
+  removeElement: (id: string) => void;
+};
+export const ElementContext = createContext<ElementContext>(null);
 
 function CreateForm() {
   const [elementState, setElements] = useState<CreateFormState>({
