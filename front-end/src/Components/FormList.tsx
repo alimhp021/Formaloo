@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import { FormType } from "../Types/formType";
-import { ElementInterfaces } from "./inputTypes";
+import { ElementInterfaces } from "../Types/inputTypes";
 
 interface FormTypeWithDate {
   formName: string;
