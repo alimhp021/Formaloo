@@ -12,4 +12,10 @@ export class FormRepository {
     getForms = async (creatorId: string) => {
         return await this.forms.find({creatorId: "admin"});
     }
+
+
+
+    updateForm = async () => {
+        
+    }
 }
