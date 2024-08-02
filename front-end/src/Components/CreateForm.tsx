@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createContext } from "react";
 import { ElementInterfaces } from "../inputTypes";
 import { SidePanel } from "./SidePanel";
@@ -9,16 +9,17 @@ interface CreateFormState {
   elements: ElementInterfaces[];
 }
 
-type ElementContext = { addElement: ((arg: ElementInterfaces) => void), removeElement: (id: string) => void };
-export const ElementContext = createContext<ElementContext>(null as any);
+type ElementContext = {
+  addElement: (arg: ElementInterfaces) => void;
+  removeElement: (id: string) => void;
+};
+export const ElementContext = createContext<ElementContext>(null);
 
 function CreateForm() {
   const [elementState, setElements] = useState<CreateFormState>({
     elements: [],
   });
-  useEffect(() => {
-    console.log(elementState);
-  }, [elementState]);
+  useEffect(() => {}, [elementState]);
 
   const addElement = useCallback((element: ElementInterfaces) => {
     setElements((elementState) => {
