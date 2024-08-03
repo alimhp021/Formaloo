@@ -6,14 +6,20 @@ const Dashboard = () => {
     <div>
       <button
         onClick={() => {
-          updateRoute("createForm");
+          updateRoute({
+            route: "createForm",
+            form: { title: "", elements: [], results: [], isPublished: false },
+          });
         }}
       >
         Create Form
       </button>
       <button
         onClick={() => {
-          updateRoute("editForm");
+          updateRoute({
+            route: "formList",
+            form: { title: "", elements: [], results: [], isPublished: false },
+          });
         }}
       >
         Forms List

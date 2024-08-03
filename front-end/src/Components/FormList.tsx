@@ -1,45 +1,34 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import "../App.css";
 import { FormType } from "../Types/formType";
-import { ElementInterfaces } from "../Types/inputTypes";
 import { RouteContext } from "../App";
 
-interface FormTypeWithDate {
-  formName: string;
-  isPublished: boolean;
-  elementsInfo: ElementInterfaces[];
-  dateCreated: string;
-  dateModified: string;
-}
-
 const FormList = () => {
-  const [forms, setForms] = useState<FormTypeWithDate[]>([]);
+  //api call : recieve forms
+  const [forms, setForms] = useState<FormType[]>([]);
   const { updateRoute: updateRoute } = useContext(RouteContext);
   const deleteForm = useCallback((index: number) => {
     setForms((forms) => {
       return forms.slice(0, index).concat(forms.slice(index + 1));
     });
   }, []);
-  useEffect(() => {
-    const postForms = forms.map((form) => {
-      const newForm: FormType = {
-        formName: form.formName,
-        isPublished: form.isPublished,
-        elementsInfo: form.elementsInfo,
-      };
-      return newForm;
+  const editForm = useCallback((index: number, newForm: FormType) => {
+    setForms((forms) => {
+      return forms
+        .slice(0, index)
+        .concat(newForm)
+        .concat(forms.slice(index + 1));
     });
-    // api call PostForms
-  });
-  //api call : recieve forms
+  }, []);
+
+  useEffect(() => {
+    // api post forms(after publish and delete)
+  }, [forms]);
 
   return forms.map((form, index) => {
     return (
       <div className="Form">
-        <span>{form.formName}</span>
-        <span>Date Created: {`${form.dateCreated}`} </span>
-        <span>Date Modified: {`${form.dateModified}`}</span>
-        <span>Status: {form.isPublished}</span>
+        <span>{form.title}</span>
         <button
           onClick={() => {
             deleteForm(index);
@@ -47,16 +36,46 @@ const FormList = () => {
         >
           Delete
         </button>
+        {!form.isPublished && (
+          <button
+            onClick={() => {
+              //deletes current form and posts the form returned by the EditForm page
+              deleteForm(index);
+              updateRoute({
+                route: "editForm",
+                form: {
+                  ...form,
+                },
+              });
+            }}
+          >
+            Edit
+          </button>
+        )}
         <button
           onClick={() => {
-            //deletes current form and posts the form returned by the EditForm page
-            deleteForm(index);
-            updateRoute("editForm");
+            if (!form.isPublished) {
+              const newForm: FormType = { ...form, isPublished: true };
+              editForm(index, newForm);
+            }
           }}
         >
-          Edit
+          {form.isPublished ? "Published" : "Publish"}
         </button>
-        <button>View Results</button>
+        {form.isPublished && (
+          <button
+            onClick={() => {
+              updateRoute({
+                route: "resultList",
+                form: {
+                  ...form,
+                },
+              });
+            }}
+          >
+            View Results
+          </button>
+        )}
       </div>
     );
   });

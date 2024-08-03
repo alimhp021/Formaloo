@@ -7,6 +7,7 @@ import ViewResults from "./Components/ViewResult";
 import ResultList from "./Components/ResultList";
 import FormList from "./Components/FormList";
 import FillForm from "./Components/FillForm";
+import { FormType } from "./Types/formType";
 
 interface Route {
   route:
@@ -17,10 +18,11 @@ interface Route {
     | "formList"
     | "resultList"
     | "viewRelusts";
+  form: FormType;
 }
 
 export const RouteContext = createContext({
-  updateRoute: (route: Route["route"]) => {},
+  updateRoute: (route: Route) => {},
 });
 
 const setCurrentPage = (route: Route) => {
@@ -30,26 +32,34 @@ const setCurrentPage = (route: Route) => {
     case "createForm":
       return <CreateForm></CreateForm>;
     case "editForm":
-      return <EditForm></EditForm>;
+      return (
+        <EditForm
+          elements={route.form.elements}
+          title={route.form.title}
+        ></EditForm>
+      );
     case "fillForm":
       return <FillForm></FillForm>;
     case "formList":
       return <FormList></FormList>;
     case "resultList":
-      return <ResultList></ResultList>;
+      return <ResultList form={route.form}></ResultList>;
     case "viewRelusts":
       return <ViewResults></ViewResults>;
   }
 };
 
 function App() {
-  const [route, setRoute] = useState<Route>({ route: "dashboard" });
-  const updateRoute = useCallback((route: Route["route"]) => {
-    setRoute({ route: route });
+  const [routeState, setRoute] = useState<Route>({
+    route: "dashboard",
+    form: { elements: [], title: "", isPublished: false, results: [] },
+  });
+  const updateRoute = useCallback((route: Route) => {
+    setRoute(route);
   }, []);
   return (
     <RouteContext.Provider value={{ updateRoute }}>
-      <div className="App">{setCurrentPage(route)} </div>
+      <div className="App">{setCurrentPage(routeState)} </div>
     </RouteContext.Provider>
   );
 }

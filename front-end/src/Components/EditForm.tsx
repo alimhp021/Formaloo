@@ -23,7 +23,7 @@ function EditForm({
   title,
 }: {
   elements: ElementInterfaces[];
-  title: "string";
+  title: string;
 }) {
   const [elementState, setElements] = useState<CreateFormState>({
     elements: [...elements],
@@ -51,7 +51,7 @@ function EditForm({
     <div className="CreateForm">
       <ElementContext.Provider value={{ addElement, removeElement }}>
         <SidePanel></SidePanel>
-        <GenerateForm elementsInfo={elementState.elements} />
+        <GenerateForm elementsInfo={elementState.elements} title={title} />
       </ElementContext.Provider>
     </div>
   );
